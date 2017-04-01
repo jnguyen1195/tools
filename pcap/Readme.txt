@@ -20,3 +20,6 @@ upload_max_filesize = 520M
 
 5. Create symbolic link:
     sudo ln -s /opt/autoweb /var/www/autoweb
+
+6. Add tester user name to /etc/sudoers:
+tester  ALL=(ALL:ALL) NOPASSWD: /usr/bin/tcpdump *, /usr/bin/tcpreplay *, /opt/autoweb/pcap/REPLAY.sh * 

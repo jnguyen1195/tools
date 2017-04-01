@@ -1,4 +1,9 @@
 <?php
+// Written by Joe Nguyen ( joe_nguyen@yahoo.com )
+// Description:
+//   Web front page used to upload pcap file and ssh to tester to launch tcpreplay. 
+//
+
 include('/usr/share/php/Crypt/RSA.php');
 include('/usr/share/php/phpseclib.autoloader.php');
 
@@ -43,7 +48,7 @@ if (file_exists($target_file)) {
    for ( $j = 0 ; $j < sizeof($msgarray);$j++) {
      $msg =$msg."\n".$msgarray[$j];
    }
-   $statusScreen .= "Remove old file $target_file."."$msg";
+   $statusScreen .= "\nRemove old file $target_file."."$msg";
    #$uploadOk = 1;
 } 
 
@@ -52,25 +57,25 @@ if ( $target_file != "NOTDEFINED" ) {
 
    
    if ($_FILES["fileToUpload"]["size"] > $PCAPSIZE ) {
-      $statusScreen .= "Sorry, your file is too large.";
+      $statusScreen .= "\nSorry, your file is too large.";
       $uploadOk = 0;
    }     
    if($imageFileType != "pcap") { 
-       $statusScreen .="Sorry, only PCAP  are allowed.";
+       $statusScreen .="\nSorry, only PCAP  are allowed.";
        $uploadOk = 0;
    }
 }
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-    $statusScreen .="Sorry, your file was not uploaded.";
+    $statusScreen .="\nSorry, your file was not uploaded.";
 // Upload file
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        $statusScreen .= "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded."; 
+        $statusScreen .= "\nThe file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded."; 
   	$msg=executeReplay ($target_file, $target_dir);
-  	$statusScreen .= "Result=$result\n".$msg;
+  	$statusScreen .= $msg;
     } else {
-        $statusScreen .= "Sorry, there was an error uploading your file.";
+        $statusScreen .= "\nSorry, there was an error uploading your file.";
     }
 }
 $_FILES["fileToUpload"]["name"] ="";
@@ -87,7 +92,7 @@ $_FILES["fileToUpload"]["name"] ="";
     Please make a note that All IPs of the current Pcap files will be substituted with the IPs with the same subnet of the 2nd interface :
     <br>
     <input type="file" name="fileToUpload" id="fileToUpload">	  
-    <input type="submit" value="Upload Image" name="submit">
+    <input type="submit" value="Upload Pcap File" name="submit">
     </br>
     <b>Log Screen</b>
     <br><textarea bgcolor="#000080"  name="statusScreen" rows="10" cols="<?php echo $COLSIZE2 ?> "readonly ><?php  echo  $statusScreen; ?> </textarea><br>
