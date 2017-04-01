@@ -22,4 +22,4 @@ upload_max_filesize = 520M
     sudo ln -s /opt/autoweb /var/www/autoweb
 
 6. Add tester user name to /etc/sudoers:
-tester  ALL=(ALL:ALL) NOPASSWD: /usr/bin/tcpdump *, /usr/bin/tcpreplay *, /opt/autoweb/pcap/REPLAY.sh * 
+tester  ALL=(ALL:ALL) NOPASSWD: /usr/sbin/tcpdump *, /usr/bin/tcpreplay *, /opt/autoweb/pcap/REPLAY.sh * 
